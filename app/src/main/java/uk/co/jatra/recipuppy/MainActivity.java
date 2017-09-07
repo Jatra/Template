@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements RecipuppyView {
             public boolean onQueryTextChange(String newText) {
                 if (!newText.isEmpty()) {
                     disposable.add(fetcher.getRecipesByKeyword(newText, MainActivity.this));
+
                 } else {
                     clearRecipes();
                 }
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements RecipuppyView {
     @Override
     protected void onStop() {
         super.onStop();
-        disposable.dispose();
+        disposable.clear();
     }
 
     @Override
