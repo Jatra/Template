@@ -1,7 +1,7 @@
 package uk.co.jatra.recipuppy.domain;
 
 //From http://www.jsonschema2pojo.org/
-//Some YAGNI for now.
+//almost all(!) YAGNI for now.
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

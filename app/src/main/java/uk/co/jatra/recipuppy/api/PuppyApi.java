@@ -8,5 +8,5 @@ import uk.co.jatra.recipuppy.domain.ResultList;
 
 public interface PuppyApi {
     @GET("api")
-    Single<ResultList> getRecipes(@Query("q") String keyword);
+    Single<ResultList> getRecipesByKeyword(@Query("q") String keyword);
 }

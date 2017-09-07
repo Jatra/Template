@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 //From http://www.jsonschema2pojo.org/
-//Some YAGNI for now.
+//Mostly(!) YAGNI for now.
 
 public class Recipe {
 
