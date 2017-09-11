@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy;
+package uk.co.jatra.template;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +16,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
-import uk.co.jatra.recipuppy.api.RecipeFetcher;
+import uk.co.jatra.template.api.RecipeFetcher;
 
-public class MainActivity extends AppCompatActivity implements RecipuppyView {
+public class MainActivity extends AppCompatActivity implements TemplateView {
 
-    public static final String ERROR_FETCHING_RECIPES = "Error fetching recipes ... ";
+    public static final String ERROR_FETCHING_DATA = "Error fetching data ... ";
     @BindView(R.id.searchview) SearchView searchView;
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
 
-    private RecipeAdapter adapter;
-    private List<String> recipes = Collections.emptyList();
+    private DataAdapter adapter;
+    private List<String> data = Collections.emptyList();
     private CompositeDisposable disposable;
 
     @Override
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements RecipuppyView {
                     disposable.add(fetcher.getRecipesByKeyword(newText, MainActivity.this));
 
                 } else {
-                    clearRecipes();
+                    clearData();
                 }
                 return true;
             }
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements RecipuppyView {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecipeAdapter();
+        adapter = new DataAdapter();
         recyclerView.setAdapter(adapter);
     }
 
@@ -72,42 +72,42 @@ public class MainActivity extends AppCompatActivity implements RecipuppyView {
     }
 
     @Override
-    public void setRecipes(List<String> recipes) {
-        this.recipes = recipes;
+    public void setValues(List<String> values) {
+        this.data = values;
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void showError(Throwable throwable) {
-        Toast.makeText(this, ERROR_FETCHING_RECIPES +throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ERROR_FETCHING_DATA +throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void clearRecipes() {
-        recipes.clear();
+    private void clearData() {
+        data.clear();
         adapter.notifyDataSetChanged();
     }
 
-    private class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
+    private class DataAdapter extends RecyclerView.Adapter<DataViewHolder> {
 
         @Override
-        public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             final TextView view = (TextView) LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-            return new RecipeViewHolder(view);
+            return new DataViewHolder(view);
         }
 
-        @Override public void onBindViewHolder(RecipeViewHolder holder, int position) {
-            holder.getView().setText(recipes.get(position));
+        @Override public void onBindViewHolder(DataViewHolder holder, int position) {
+            holder.getView().setText(data.get(position));
         }
 
         @Override public int getItemCount() {
-            return recipes.size();
+            return data.size();
         }
     }
 
-    private class RecipeViewHolder extends RecyclerView.ViewHolder {
+    private class DataViewHolder extends RecyclerView.ViewHolder {
         private final TextView view;
 
-        RecipeViewHolder(TextView view) {
+        DataViewHolder(TextView view) {
             super(view);
             this.view = view;
         }

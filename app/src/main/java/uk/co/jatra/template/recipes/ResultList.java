@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy.domain;
+package uk.co.jatra.template.recipes;
 
 //From http://www.jsonschema2pojo.org/
 //almost all(!) YAGNI for now.

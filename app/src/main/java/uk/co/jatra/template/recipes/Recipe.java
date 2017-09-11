@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy.domain;
+package uk.co.jatra.template.recipes;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

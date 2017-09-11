@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy;
+package uk.co.jatra.template;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

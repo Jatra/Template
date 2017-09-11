@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy;
+package uk.co.jatra.template;
 
 import org.junit.Test;
 

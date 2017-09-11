@@ -1,4 +1,4 @@
-package uk.co.jatra.recipuppy.api;
+package uk.co.jatra.template.api;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -7,16 +7,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import uk.co.jatra.recipuppy.RecipuppyView;
-import uk.co.jatra.recipuppy.domain.Recipe;
-import uk.co.jatra.recipuppy.domain.ResultList;
+import uk.co.jatra.template.TemplateView;
+import uk.co.jatra.template.recipes.Recipe;
+import uk.co.jatra.template.recipes.ResultList;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 import static io.reactivex.schedulers.Schedulers.io;
 
 public class RecipeFetcher {
 
-    private static final int RECIPE_LIMIT = 20;
+    private static final int LIMIT = 20;
     public static final String RECIPE_PUPPY_BASE_URL = "http://www.recipepuppy.com/";
     private final PuppyApi service;
 
@@ -37,14 +37,14 @@ public class RecipeFetcher {
                 .create(PuppyApi.class);
     }
 
-    public Disposable getRecipesByKeyword(String keyword, RecipuppyView view) {
+    public Disposable getRecipesByKeyword(String keyword, TemplateView view) {
         return service.getRecipesByKeyword(keyword)
                 .subscribeOn(io())
                 .observeOn(mainThread())
                 .flattenAsObservable(ResultList::getRecipes)
-                .take(RECIPE_LIMIT)
+                .take(LIMIT)
                 .map(Recipe::getTitle)
                 .toList()
-                .subscribe(view::setRecipes, view::showError);
+                .subscribe(view::setValues, view::showError);
     }
 }
